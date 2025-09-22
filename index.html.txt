@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Frances' Corner of the Internet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <h1>Frances' Corner of the Internet</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Inspiration</a></li>
+      <li><a href="#">Guestbook</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+  <main>
+    <section class="intro">
+      <h2>Welcome!</h2>
+      <p>This is Frances' cozy digital corner. Enjoy my blog, creative inspiration, and let’s connect!</p>
+    </section>
+    <section class="placeholder">
+      <h3>✨ More coming soon! ✨</h3>
+    </section>
+  </main>
+  <script src="cursor.js"></script>
+</body>
+</html>
