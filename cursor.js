@@ -1,4 +1,4 @@
-// Rainbow cursor effect inspired by smallweb.site/girlnet/inspire
+// Rainbow "+" cursor effect
 const colors = [
   "rgb(137, 118, 255)",
   "rgb(143, 255, 219)",
@@ -16,30 +16,31 @@ let i = 0;
 document.body.style.cursor = "none";
 
 document.addEventListener("mousemove", function (e) {
-  // Create the dot
-  const dot = document.createElement("div");
-  dot.className = "rainbow-dot";
-  dot.style.left = e.clientX + "px";
-  dot.style.top = e.clientY + "px";
-  dot.style.background = colors[i % colors.length];
+  // Create the "+" element
+  const plus = document.createElement("div");
+  plus.className = "rainbow-plus";
+  plus.textContent = "+";
+  plus.style.left = e.clientX + "px";
+  plus.style.top = e.clientY + "px";
+  plus.style.color = colors[i % colors.length];
   i++;
 
-  document.body.appendChild(dot);
-  mouseTrail.push(dot);
+  document.body.appendChild(plus);
+  mouseTrail.push(plus);
 
-  // Remove oldest dot if we have too many
+  // Remove oldest "+" if we have too many
   if (mouseTrail.length > trailLength) {
     let old = mouseTrail.shift();
     if (old) old.remove();
   }
 
-  // Fade out the dot
+  // Fade out the "+"
   setTimeout(() => {
-    dot.style.opacity = 0;
+    plus.style.opacity = 0;
   }, 200);
 
   // Remove from DOM after fade
   setTimeout(() => {
-    if (dot.parentNode) dot.parentNode.removeChild(dot);
+    if (plus.parentNode) plus.parentNode.removeChild(plus);
   }, 600);
 });
