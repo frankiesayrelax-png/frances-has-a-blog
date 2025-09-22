@@ -81,18 +81,18 @@ main {
   letter-spacing: 1px;
 }
 
-/* Rainbow glitter cursor is added via canvas in JS */
-
-/* Rainbow cursor effect (dot trail) */
-.rainbow-dot {
+/* Rainbow plus trail */
+.rainbow-plus {
   position: fixed;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  left: 0;
+  top: 0;
   pointer-events: none;
   z-index: 9999;
+  font-size: 18px;
+  font-weight: bold;
+  user-select: none;
   opacity: 1;
-  mix-blend-mode: lighten;
   will-change: opacity, transform;
   transition: opacity 0.4s linear;
+  font-family: 'VT323', monospace;
 }
