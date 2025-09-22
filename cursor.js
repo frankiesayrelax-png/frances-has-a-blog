@@ -1,66 +1,45 @@
-// Rainbow glitter cursor trail
+// Rainbow cursor effect inspired by smallweb.site/girlnet/inspire
 const colors = [
-  "#ff5eae", "#ffb86c", "#ffd600", "#69ff7a", "#5ecbff", "#a07afe"
+  "rgb(137, 118, 255)",
+  "rgb(143, 255, 219)",
+  "rgb(255, 65, 3)",
+  "rgb(255, 255, 3)",
+  "rgb(255, 3, 255)",
+  "rgb(3, 255, 252)",
+  "rgb(255, 157, 3)"
 ];
 
-let particles = [];
+const trailLength = 20;
+let mouseTrail = [];
+let i = 0;
 
-const canvas = document.createElement('canvas');
-canvas.style.position = 'fixed';
-canvas.style.left = 0;
-canvas.style.top = 0;
-canvas.style.pointerEvents = 'none';
-canvas.style.zIndex = 100000;
-document.body.appendChild(canvas);
+document.body.style.cursor = "none";
 
-let ctx = canvas.getContext('2d');
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+document.addEventListener("mousemove", function (e) {
+  // Create the dot
+  const dot = document.createElement("div");
+  dot.className = "rainbow-dot";
+  dot.style.left = e.clientX + "px";
+  dot.style.top = e.clientY + "px";
+  dot.style.background = colors[i % colors.length];
+  i++;
 
-function addParticle(x, y) {
-  const color = colors[Math.floor(Math.random() * colors.length)];
-  const size = Math.random() * 2 + 2;
-  const angle = Math.random() * 2 * Math.PI;
-  const speed = Math.random() * 1 + 0.5;
-  particles.push({
-    x, y,
-    dx: Math.cos(angle) * speed,
-    dy: Math.sin(angle) * speed,
-    size,
-    color,
-    alpha: 1
-  });
-}
+  document.body.appendChild(dot);
+  mouseTrail.push(dot);
 
-document.addEventListener('mousemove', e => {
-  for (let i = 0; i < 3; i++) {
-    addParticle(e.clientX, e.clientY);
+  // Remove oldest dot if we have too many
+  if (mouseTrail.length > trailLength) {
+    let old = mouseTrail.shift();
+    if (old) old.remove();
   }
+
+  // Fade out the dot
+  setTimeout(() => {
+    dot.style.opacity = 0;
+  }, 200);
+
+  // Remove from DOM after fade
+  setTimeout(() => {
+    if (dot.parentNode) dot.parentNode.removeChild(dot);
+  }, 600);
 });
-
-function drawParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    ctx.save();
-    ctx.globalAlpha = p.alpha;
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
-    ctx.fillStyle = p.color;
-    ctx.shadowColor = p.color;
-    ctx.shadowBlur = 8;
-    ctx.fill();
-    ctx.restore();
-
-    p.x += p.dx;
-    p.y += p.dy;
-    p.alpha -= 0.015;
-    p.size *= 0.97;
-  });
-  particles = particles.filter(p => p.alpha > 0.05 && p.size > 0.5);
-  requestAnimationFrame(drawParticles);
-}
-drawParticles();
