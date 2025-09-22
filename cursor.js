@@ -1,4 +1,5 @@
 // Rainbow "+" cursor effect
+
 const colors = [
   "rgb(137, 118, 255)",
   "rgb(143, 255, 219)",
@@ -11,9 +12,9 @@ const colors = [
 
 const trailLength = 20;
 let mouseTrail = [];
-let i = 0;
+let colorIndex = 0;
 
-document.body.style.cursor = "none";
+// KEEP the default cursor, do NOT hide it
 
 document.addEventListener("mousemove", function (e) {
   // Create the "+" element
@@ -22,8 +23,8 @@ document.addEventListener("mousemove", function (e) {
   plus.textContent = "+";
   plus.style.left = e.clientX + "px";
   plus.style.top = e.clientY + "px";
-  plus.style.color = colors[i % colors.length];
-  i++;
+  plus.style.color = colors[colorIndex % colors.length];
+  colorIndex++;
 
   document.body.appendChild(plus);
   mouseTrail.push(plus);
